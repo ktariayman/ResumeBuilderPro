@@ -19,7 +19,7 @@ const RegisterForm: React.FC = () => {
         email: email
       };
       register(user);
-      navigate('/home');
+      navigate('/');
     }
   };
 

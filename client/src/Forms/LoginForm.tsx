@@ -1,9 +1,8 @@
-// src/components/LoginForm.tsx
-
 import React, { useState } from 'react';
-import { TextField, Button, Box, Typography, Container, Paper, Link } from '@mui/material';
+import { Button, Box, Typography, Container, Paper, Link } from '@mui/material';
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import useAuthStore from '../stores/auth.store';
+import { TextField } from '../components';
 
 const LoginForm: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -20,7 +19,7 @@ const LoginForm: React.FC = () => {
         email: email
       };
       login(user);
-      navigate('/home');
+      navigate('/');
     }
   };
 
@@ -50,6 +49,7 @@ const LoginForm: React.FC = () => {
           }}
         >
           <TextField
+            field='Email'
             variant='outlined'
             placeholder='Enter your Email here'
             type='email'
@@ -62,6 +62,7 @@ const LoginForm: React.FC = () => {
           />
           <TextField
             autoComplete='off'
+            field='password'
             variant='outlined'
             placeholder='Enter your Password here'
             type='password'
