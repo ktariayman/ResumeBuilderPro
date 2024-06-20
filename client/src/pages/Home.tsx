@@ -1,9 +1,37 @@
 import React from 'react';
-import useAuthStore from '../stores/auth.store';
+import { Box, Typography, Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
-  const { logout } = useAuthStore();
-  return <button onClick={logout}>logout</button>;
+  const navigate = useNavigate();
+
+  const handleButtonClick = () => {
+    navigate('/generate-resume');
+  };
+
+  return (
+    <Box
+      display='flex'
+      flexDirection='column'
+      alignItems='center'
+      justifyContent='center'
+      minHeight='100vh'
+    >
+      <Typography
+        variant='h4'
+        marginBottom={3}
+      >
+        Welcome to the Home Page
+      </Typography>
+      <Button
+        variant='contained'
+        color='primary'
+        onClick={handleButtonClick}
+      >
+        Generate a Resume
+      </Button>
+    </Box>
+  );
 };
 
 export default Home;
