@@ -6,6 +6,8 @@ import PublicRoute from './PublicRoute';
 import Home from '../pages/Home';
 import LoginPage from '../pages/Login';
 import RegisterPage from '../pages/Register';
+import Profile from '../pages/Profile';
+import GenerateResume from '../pages/GenerateResume';
 
 export const useRoutes = () => {
   const router = createBrowserRouter([
@@ -16,6 +18,14 @@ export const useRoutes = () => {
         {
           index: true,
           element: <Home />
+        },
+        {
+          path: '/profile',
+          element: <Profile />
+        },
+        {
+          path: '/generate-resume',
+          element: <GenerateResume />
         }
       ]
     },
