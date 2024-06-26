@@ -37,7 +37,7 @@ const LoginForm: React.FC = () => {
           variant='h5'
           sx={{ textAlign: 'center', mb: 2 }}
         >
-          Loginnn
+          Loginnnnnnnn
         </Typography>
         <Box
           component='form'
