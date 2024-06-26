@@ -1,13 +1,13 @@
 import React from 'react';
 import { createBrowserRouter } from 'react-router-dom';
-import LoginForm from '../Forms/LoginForm';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 import Home from '../pages/Home';
 import LoginPage from '../pages/Login';
 import RegisterPage from '../pages/Register';
 import Profile from '../pages/Profile';
-import GenerateResume from '../pages/GenerateResume';
+import FormSection from '../resume/FormSection';
+import PdfViewer from '../resume/PdfViewer';
 
 export const useRoutes = () => {
   const router = createBrowserRouter([
@@ -25,7 +25,11 @@ export const useRoutes = () => {
         },
         {
           path: '/generate-resume',
-          element: <GenerateResume />
+          element: <FormSection />
+        },
+        {
+          path: '/pdf-view',
+          element: <PdfViewer />
         }
       ]
     },
