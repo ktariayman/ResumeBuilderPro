@@ -1,4 +1,3 @@
-// src/components/Profile.tsx
 import React from 'react';
 import { Box, Typography, Avatar } from '@mui/material';
 

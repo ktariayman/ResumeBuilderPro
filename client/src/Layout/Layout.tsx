@@ -1,4 +1,3 @@
-// src/Layout/Layout.tsx
 import React, { useState } from 'react';
 import { Box } from '@mui/material';
 import Navbar from '../components/Navbar';

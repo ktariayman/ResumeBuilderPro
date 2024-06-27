@@ -6,7 +6,7 @@ import Home from '../pages/Home';
 import LoginPage from '../pages/Login';
 import RegisterPage from '../pages/Register';
 import Profile from '../pages/Profile';
-import FormSection from '../resume/FormSection';
+import ResumeBuilder from '../resume/ResumeBuilder';
 import PdfViewer from '../resume/PdfViewer';
 
 export const useRoutes = () => {
@@ -25,7 +25,7 @@ export const useRoutes = () => {
         },
         {
           path: '/generate-resume',
-          element: <FormSection />
+          element: <ResumeBuilder />
         },
         {
           path: '/pdf-view',

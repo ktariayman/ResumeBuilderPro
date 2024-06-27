@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Button, Box, Typography, Container, Paper, Link } from '@mui/material';
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
-import useAuthStore from '../stores/auth.store';
-import { TextField } from '../components';
+import useAuthStore from '../../stores/auth.store';
+import { TextField } from '../../components';
 
 const LoginForm: React.FC = () => {
   const [email, setEmail] = useState('');

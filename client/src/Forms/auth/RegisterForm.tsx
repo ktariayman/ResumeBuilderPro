@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { TextField, Button, Box, Typography, Container, Paper, Link } from '@mui/material';
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
-import useAuthStore from '../stores/auth.store';
+import useAuthStore from '../../stores/auth.store';
 
 const RegisterForm: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -14,7 +14,7 @@ const RegisterForm: React.FC = () => {
     e.preventDefault();
     if (email && password && name) {
       const user = {
-        id: new Date().getTime().toString(), // Unique user ID
+        id: new Date().getTime().toString(),
         name: name,
         email: email
       };
