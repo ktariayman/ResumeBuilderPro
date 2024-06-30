@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { TextField, Button, Grid, Typography, Container, Box } from '@mui/material';
+import { TextField, Button, Grid, Typography, Container, Box, IconButton } from '@mui/material';
 import { toast } from 'react-hot-toast';
+import { Delete as DeleteIcon } from '@mui/icons-material';
 import useResumeStore from '../stores/resume.store';
+import { IExperience } from '../ts/interfaces';
 
 const Experience = () => {
   const { resumeInfo, updateResumeInfo } = useResumeStore();
-  const [experienceList, setExperienceList] = useState(resumeInfo.experience);
+  const [experienceList, setExperienceList] = useState<IExperience[]>(resumeInfo.experience);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -37,17 +39,8 @@ const Experience = () => {
     ]);
   };
 
-  const removeExperience = () => {
-    setExperienceList(experienceList.slice(0, -1));
-  };
-
-  const onSave = () => {
-    setLoading(true);
-    // Placeholder for API call
-    setTimeout(() => {
-      toast.success('Experience updated');
-      setLoading(false);
-    }, 1000);
+  const removeExperience = (indexToRemove: number) => {
+    setExperienceList(experienceList.filter((_, index) => index !== indexToRemove));
   };
 
   return (
@@ -82,6 +75,16 @@ const Experience = () => {
             key={index}
             sx={{ mt: 2, p: 2, border: '1px solid #ddd', borderRadius: 1 }}
           >
+            <Grid
+              item
+              xs={12}
+              container
+              justifyContent='flex-end'
+            >
+              <IconButton onClick={() => removeExperience(index)}>
+                <DeleteIcon color='error' />
+              </IconButton>
+            </Grid>
             <Grid
               item
               xs={12}
@@ -186,21 +189,7 @@ const Experience = () => {
             >
               + Add More Experience
             </Button>
-            <Button
-              variant='outlined'
-              onClick={removeExperience}
-            >
-              - Remove Experience
-            </Button>
           </Box>
-          <Button
-            variant='contained'
-            color='primary'
-            onClick={onSave}
-            disabled={loading}
-          >
-            {loading ? 'Saving...' : 'Save'}
-          </Button>
         </Box>
       </Box>
     </Container>

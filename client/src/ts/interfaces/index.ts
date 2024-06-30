@@ -1,4 +1,4 @@
-interface Experience {
+export interface IExperience {
   title: string;
   companyName: string;
   city: string;
@@ -7,17 +7,18 @@ interface Experience {
   endDate: string;
   workSummery: string;
 }
-interface Skill {
+export interface ISkill {
   name: string;
   rating: number;
 }
-interface Education {
+export interface IEducation {
   institution: string;
   degree: string;
   startDate: string;
   endDate: string;
 }
-export interface ResumeInfo {
+
+interface IPersonalDetails {
   firstName: string;
   lastName: string;
   jobTitle: string;
@@ -25,7 +26,9 @@ export interface ResumeInfo {
   phone: string;
   email: string;
   summery: string;
-  experience: Experience[];
-  skills: Skill[];
-  education: Education[];
+}
+export interface IResumeInfo extends IPersonalDetails {
+  experience: IExperience[];
+  skills: ISkill[];
+  education: IEducation[];
 }

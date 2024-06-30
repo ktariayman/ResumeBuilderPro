@@ -1,31 +1,33 @@
-import React, { useState } from 'react';
-import { Button, Box, Grid, CircularProgress } from '@mui/material';
-import { useParams, Navigate, Link, useNavigate } from 'react-router-dom';
+import React from 'react';
+import { Button, Box, Grid } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import PersonalDetail from './PersonalDetail';
 import Summary from './Summary';
 import Experience from './Experience';
 import Skills from './Skills';
+import { useResumeForms } from '../hooks/useResumeForms';
+
+export enum ResumeForm {
+  Personal = 1,
+  Summary,
+  Experience,
+  Skills
+}
+
+const RESUME_FORM_MAP: Record<ResumeForm, React.ReactNode> = {
+  [ResumeForm.Personal]: <PersonalDetail />,
+  [ResumeForm.Summary]: <Summary />,
+  [ResumeForm.Experience]: <Experience />,
+  [ResumeForm.Skills]: <Skills />
+};
+export const renderResumeForm = (activeFormIndex: ResumeForm) => RESUME_FORM_MAP[activeFormIndex];
 
 const ResumeBuilder = () => {
-  const [activeFormIndex, setActiveFormIndex] = useState(1);
-  const [enableNext, setEnableNext] = useState(true);
-  const { resumeId } = useParams<{ resumeId: string }>();
-  const navigate = useNavigate();
-  const handleNext = () => {
-    if (activeFormIndex < 4) {
-      setActiveFormIndex(activeFormIndex + 1);
-    } else {
-      navigate(`/pdf-view`);
-    }
-  };
+  const { activeFormIndex, enableNext, handleNext, prev } = useResumeForms();
+  const currentResumeForm = renderResumeForm(activeFormIndex);
   return (
     <Box>
-      {activeFormIndex === 1 && <PersonalDetail enabledNext={setEnableNext} />}
-      {activeFormIndex === 2 && <Summary enabledNext={setEnableNext} />}
-      {activeFormIndex === 3 && <Experience />}
-      {activeFormIndex === 4 && <Skills />}
-      {activeFormIndex === 5 && <Navigate to={`/my-resume/${resumeId}/view`} />}
-
+      {currentResumeForm}
       <Grid
         container
         justifyContent='space-between'
@@ -37,11 +39,11 @@ const ResumeBuilder = () => {
             container
             spacing={2}
           >
-            {activeFormIndex > 1 && (
+            {activeFormIndex > ResumeForm.Personal && (
               <Grid item>
                 <Button
                   size='small'
-                  onClick={() => setActiveFormIndex(activeFormIndex - 1)}
+                  onClick={prev}
                 >
                   Previous
                 </Button>
@@ -53,7 +55,7 @@ const ResumeBuilder = () => {
                 size='small'
                 onClick={handleNext}
               >
-                Next
+                {activeFormIndex < ResumeForm.Skills ? 'Next' : 'Finish'}
               </Button>
             </Grid>
           </Grid>

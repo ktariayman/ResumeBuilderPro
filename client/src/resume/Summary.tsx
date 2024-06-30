@@ -1,10 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { TextField, Button, Typography, Box, Container, CircularProgress } from '@mui/material';
+import {
+  TextField,
+  Button,
+  Typography,
+  Box,
+  Container,
+  CircularProgress,
+  IconButton,
+  Grid
+} from '@mui/material';
 import toast from 'react-hot-toast';
 import useResumeStore from '../stores/resume.store';
+import { useResumeForms } from '../hooks/useResumeForms';
+import { Cancel } from '@mui/icons-material';
 
-const Summary = ({ enabledNext }: { enabledNext: (value: boolean) => void }) => {
+const Summary = () => {
   const { resumeInfo, updateResumeInfo } = useResumeStore();
+  const { setEnableNext: enabledNext } = useResumeForms();
   const [summary, setSummary] = useState(resumeInfo.summery);
   const [loading, setLoading] = useState(false);
   const [aiGeneratedSummaries, setAiGeneratedSummaries] = useState<string[]>([]);
@@ -20,15 +32,9 @@ const Summary = ({ enabledNext }: { enabledNext: (value: boolean) => void }) => 
       setLoading(false);
     }, 2000);
   };
-
-  const onSave = (e: React.FormEvent) => {
-    e.preventDefault();
-    setTimeout(() => {
-      toast.success('Summary updated');
-      enabledNext(true);
-    }, 1000);
+  const handleResetForm = () => {
+    setSummary('');
   };
-
   return (
     <Container maxWidth='md'>
       <Box
@@ -41,48 +47,53 @@ const Summary = ({ enabledNext }: { enabledNext: (value: boolean) => void }) => 
           mt: 3
         }}
       >
-        <Typography
-          variant='h5'
-          component='h2'
-          gutterBottom
+        <Grid
+          container
+          spacing={2}
+          sx={{ mt: 2 }}
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            width: '100%'
+          }}
         >
-          Summary
-        </Typography>
+          <Typography
+            variant='h5'
+            component='h2'
+            gutterBottom
+          >
+            Summary
+          </Typography>
+          <IconButton onClick={handleResetForm}>
+            <Cancel />
+          </IconButton>
+        </Grid>
+
         <Typography
           variant='body1'
           gutterBottom
         >
           Add Summary for your job title
         </Typography>
-        <form onSubmit={onSave}>
-          <TextField
-            fullWidth
-            label='Summary'
-            required
-            value={summary}
-            onChange={(e) => setSummary(e.target.value)}
-            sx={{ mt: 2 }}
-          />
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}>
-            <Button
-              variant='contained'
-              color='primary'
-              onClick={generateSummaryFromAI}
-              disabled={loading}
-              startIcon={loading ? <CircularProgress size={20} /> : null}
-            >
-              {loading ? 'Generating...' : 'Generate Summary from AI'}
-            </Button>
-            <Button
-              type='submit'
-              variant='contained'
-              color='primary'
-              disabled={loading}
-            >
-              {loading ? 'Saving...' : 'Save'}
-            </Button>
-          </Box>
-        </form>
+        <TextField
+          fullWidth
+          label='Summary'
+          required
+          value={summary}
+          onChange={(e) => setSummary(e.target.value)}
+          sx={{ mt: 2 }}
+        />
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}>
+          <Button
+            variant='contained'
+            color='primary'
+            onClick={generateSummaryFromAI}
+            disabled={loading}
+            startIcon={loading ? <CircularProgress size={20} /> : null}
+          >
+            {loading ? 'Generating...' : 'Generate Summary from AI'}
+          </Button>
+        </Box>
         {aiGeneratedSummaries.length > 0 && (
           <Box sx={{ mt: 3 }}>
             <Typography variant='h6'>Suggestions</Typography>

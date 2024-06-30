@@ -1,7 +1,23 @@
-import React from 'react';
-import { Box, Typography, Avatar } from '@mui/material';
+import React, { useState } from 'react';
+import { Box, Typography, Avatar, Button, Modal } from '@mui/material';
 
 const Profile = () => {
+  const [cvFile, setCvFile] = useState<any>(null);
+  const [openModal, setOpenModal] = useState(false);
+
+  const handleFileUpload = (event: any) => {
+    const file = event.target.files[0];
+    setCvFile(URL.createObjectURL(file));
+  };
+
+  const handleOpenModal = () => {
+    setOpenModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  };
+
   return (
     <Box
       display='flex'
@@ -32,6 +48,92 @@ const Profile = () => {
       >
         Some other profile details...
       </Typography>
+
+      <Button
+        variant='contained'
+        component='label'
+        sx={{ marginTop: 2 }}
+      >
+        Upload CV
+        <input
+          type='file'
+          hidden
+          onChange={handleFileUpload}
+          accept='.pdf,.txt'
+        />
+      </Button>
+      {cvFile && (
+        <Box
+          height={400}
+          width='80%'
+          maxWidth={500}
+          my={4}
+          display='flex'
+          alignItems='center'
+          justifyContent='center'
+          p={2}
+          sx={{
+            border: '2px solid grey',
+            overflow: 'hidden',
+            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
+            borderRadius: '8px',
+            backgroundColor: '#f9f9f9'
+          }}
+        >
+          <iframe
+            title='resume-pdf'
+            src={cvFile}
+            width='100%'
+            height='100%'
+            style={{ border: 'none' }}
+          />
+        </Box>
+      )}
+      {cvFile && (
+        <>
+          <Button
+            variant='outlined'
+            onClick={handleOpenModal}
+            sx={{ marginTop: 2 }}
+          >
+            View Uploaded CV
+          </Button>
+          <Modal
+            open={openModal}
+            onClose={handleCloseModal}
+            aria-labelledby='pdf-viewer-modal'
+            aria-describedby='pdf-viewer-description'
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}
+          >
+            <Box
+              sx={{
+                position: 'absolute',
+                top: '50px',
+                left: '50px',
+                right: '50px',
+                bottom: '50px',
+                bgcolor: 'background.paper',
+                boxShadow: 24,
+                p: 4,
+                overflow: 'auto',
+                borderRadius: '8px'
+              }}
+            >
+              <iframe
+                title='resume-pdf'
+                src={cvFile}
+                width='100%'
+                height='100%'
+                style={{ border: 'none' }}
+              />
+            </Box>
+          </Modal>
+        </>
+      )}
     </Box>
   );
 };

@@ -19,7 +19,7 @@ const PdfViewer = () => {
         ref={componentRef}
         component={Paper}
         elevation={6}
-        sx={{ p: 4, textAlign: 'center', backgroundColor: 'white', color: 'black', mt: 4, mb: 4 }}
+        sx={{ p: 4, backgroundColor: 'white', color: 'black', mt: 4, mb: 4 }}
       >
         <div
           style={{

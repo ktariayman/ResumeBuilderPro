@@ -1,37 +1,28 @@
 import React from 'react';
-import { Box, Typography, Button } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { Container, Grid } from '@mui/material';
+import { dummyPosts } from '../constants';
+import { PostType } from '../ts/types';
+import Post from '../components/Post';
 
-const Home = () => {
-  const navigate = useNavigate();
-
-  const handleButtonClick = () => {
-    navigate('/generate-resume');
-  };
-
+const HomePage = () => {
   return (
-    <Box
-      display='flex'
-      flexDirection='column'
-      alignItems='center'
-      justifyContent='center'
-      minHeight='100vh'
-    >
-      <Typography
-        variant='h4'
-        marginBottom={3}
+    <Container maxWidth='lg'>
+      <Grid
+        container
+        spacing={2}
       >
-        Welcome to the Home Page
-      </Typography>
-      <Button
-        variant='contained'
-        color='primary'
-        onClick={handleButtonClick}
-      >
-        Generate a Resume
-      </Button>
-    </Box>
+        {dummyPosts.map((post: PostType) => (
+          <Grid
+            item
+            xs={12}
+            key={post.id}
+          >
+            <Post post={post} />
+          </Grid>
+        ))}
+      </Grid>
+    </Container>
   );
 };
 
-export default Home;
+export default HomePage;

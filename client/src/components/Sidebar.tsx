@@ -43,19 +43,20 @@ const Sidebar: React.FC<SidebarProps> = ({ isExpanded }) => {
           onClick={() => navigate('/')}
         >
           <ListItemIcon>
-            <HomeIcon style={{ color: 'white' }} />
+            <PersonIcon style={{ color: 'white' }} />
           </ListItemIcon>
           {isExpanded && <ListItemText primary='Home' />}
         </ListItem>
         <ListItem
           button
-          onClick={() => navigate('/profile')}
+          onClick={() => navigate('/generate-resume')}
         >
           <ListItemIcon>
-            <PersonIcon style={{ color: 'white' }} />
+            <HomeIcon style={{ color: 'white' }} />
           </ListItemIcon>
-          {isExpanded && <ListItemText primary='Profile' />}
+          {isExpanded && <ListItemText primary='Resume Builder' />}
         </ListItem>
+
         <Divider sx={{ backgroundColor: 'rgba(255, 255, 255, 0.12)' }} />
       </List>
     </Box>

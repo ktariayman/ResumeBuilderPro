@@ -1,24 +1,25 @@
 import { create } from 'zustand';
-import { ResumeInfo } from '../ts/interfaces';
+import { IResumeInfo } from '../ts/interfaces';
+export const RESUME_INFO_DEFAULT: IResumeInfo = {
+  firstName: '',
+  lastName: '',
+  jobTitle: '',
+  address: '',
+  phone: '',
+  email: '',
+  summery: '',
+  experience: [],
+  skills: [],
+  education: []
+};
 
 interface ResumeState {
-  resumeInfo: ResumeInfo;
-  updateResumeInfo: (info: ResumeInfo) => void;
+  resumeInfo: IResumeInfo;
+  updateResumeInfo: (info: IResumeInfo) => void;
 }
 
 const useResumeStore = create<ResumeState>((set) => ({
-  resumeInfo: {
-    firstName: '',
-    lastName: '',
-    jobTitle: '',
-    address: '',
-    phone: '',
-    email: '',
-    summery: '',
-    experience: [],
-    skills: [],
-    education: []
-  },
+  resumeInfo: RESUME_INFO_DEFAULT,
   updateResumeInfo: (info) => set({ resumeInfo: info })
 }));
 

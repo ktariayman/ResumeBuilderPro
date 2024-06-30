@@ -1,6 +1,7 @@
-import { ResumeInfo } from '../ts/interfaces';
+import { IResumeInfo } from '../ts/interfaces';
+import { PostType, UserType } from '../ts/types';
 
-const DUMMY_RESUME_INFO: ResumeInfo = {
+export const DUMMY_RESUME_INFO: IResumeInfo = {
   firstName: 'John',
   lastName: 'Doe',
   jobTitle: 'Software Developer',
@@ -45,3 +46,42 @@ const DUMMY_RESUME_INFO: ResumeInfo = {
     }
   ]
 };
+
+// dummyData.ts
+
+const dummyUsers: UserType[] = [
+  { id: 1, name: 'John Doe' },
+  { id: 2, name: 'Jane Smith' }
+  // Add more users as needed
+];
+
+export const dummyPosts: PostType[] = [
+  {
+    id: 1,
+    title: 'Software Engineer Resume',
+    description: 'Experienced software engineer proficient in React and Node.js.',
+    resumeLink:
+      'https://pdfbib.com/exemple/exemple-0745-180-trucs-et-astuces-windows-10.pdf#toolbar=0&view=FitH',
+    likes: 15,
+    userId: 1,
+    userName: 'John Doe',
+    comments: [
+      { id: 1, text: 'Great resume!', userId: 2, userName: 'Jane Smith' },
+      { id: 2, text: 'Could use more projects.', userId: 1, userName: 'John Doe' }
+    ]
+  },
+  {
+    id: 2,
+    title: 'Data Scientist Resume',
+    description: 'Data scientist with expertise in machine learning and data analysis.',
+    resumeLink:
+      'https://pdfbib.com/exemple/exemple-0745-180-trucs-et-astuces-windows-10.pdf#toolbar=0&view=FitH',
+    likes: 10,
+    userId: 2,
+    userName: 'Jane Smith',
+    comments: [
+      { id: 1, text: 'Impressive skills!', userId: 1, userName: 'John Doe' },
+      { id: 2, text: 'Needs more experience in deep learning.', userId: 2, userName: 'Jane Smith' }
+    ]
+  }
+];

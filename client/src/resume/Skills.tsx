@@ -6,10 +6,14 @@ import {
   Box,
   Container,
   Grid,
-  CircularProgress
+  CircularProgress,
+  IconButton
 } from '@mui/material';
+import { Delete as DeleteIcon } from '@mui/icons-material';
+
 import toast from 'react-hot-toast';
-import useResumeStore from '../stores/resume.store';
+import useResumeStore, { RESUME_INFO_DEFAULT } from '../stores/resume.store';
+import CancelIcon from '@mui/icons-material/Cancel';
 
 const Skills = () => {
   const { resumeInfo, updateResumeInfo } = useResumeStore();
@@ -30,18 +34,15 @@ const Skills = () => {
     setSkillsList([...skillsList, { name: '', rating: 0 }]);
   };
 
-  const removeSkill = () => {
-    setSkillsList(skillsList.slice(0, -1));
+  const removeSkill = (index: number) => {
+    const updatedSkillsList = [...skillsList];
+    updatedSkillsList.splice(index, 1);
+    setSkillsList(updatedSkillsList);
   };
 
-  const onSave = () => {
-    setLoading(true);
-    setTimeout(() => {
-      toast.success('Skills updated');
-      setLoading(false);
-    }, 1000);
+  const handleResetForm = () => {
+    setSkillsList([]);
   };
-
   return (
     <Container maxWidth='md'>
       <Box
@@ -54,13 +55,28 @@ const Skills = () => {
           mt: 3
         }}
       >
-        <Typography
-          variant='h5'
-          component='h2'
-          gutterBottom
+        <Grid
+          container
+          spacing={2}
+          sx={{ mt: 2 }}
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            width: '100%'
+          }}
         >
-          Skills
-        </Typography>
+          <Typography
+            variant='h5'
+            component='h2'
+            gutterBottom
+          >
+            Skills
+          </Typography>
+          <IconButton onClick={handleResetForm}>
+            <CancelIcon />
+          </IconButton>
+        </Grid>
+
         <Typography
           variant='body1'
           gutterBottom
@@ -74,6 +90,16 @@ const Skills = () => {
             key={index}
             sx={{ mb: 2, p: 2, border: '1px solid #ddd', borderRadius: 1 }}
           >
+            <Grid
+              item
+              xs={12}
+              container
+              justifyContent='flex-end'
+            >
+              <IconButton onClick={() => removeSkill(index)}>
+                <DeleteIcon color='error' />
+              </IconButton>
+            </Grid>
             <Grid
               item
               xs={12}
@@ -109,21 +135,7 @@ const Skills = () => {
             >
               + Add More Skill
             </Button>
-            <Button
-              variant='outlined'
-              onClick={removeSkill}
-            >
-              - Remove Skill
-            </Button>
           </Box>
-          <Button
-            variant='contained'
-            color='primary'
-            onClick={onSave}
-            disabled={loading}
-          >
-            {loading ? <CircularProgress size={24} /> : 'Save'}
-          </Button>
         </Box>
       </Box>
     </Container>
